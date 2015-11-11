@@ -48,7 +48,7 @@ public class Character implements GameplayComponent {
     @Override
     public void Draw(SpriteBatch batch)
     {
-        T.dude.setPosition(x* GERGame.gWidth,y*GERGame.gWidth);
+        //T.dude.setPosition(x* GERGame.gWidth,y*GERGame.gWidth);
         T.dude.draw(batch);
     }
 }

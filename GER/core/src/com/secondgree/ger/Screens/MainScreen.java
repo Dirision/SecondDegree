@@ -47,6 +47,9 @@ public class MainScreen implements Screen{
         gHeight = Gdx.graphics.getHeight();
 
         cam = new OrthographicCamera(gWidth,gHeight);
+        
+        // TODO: Fix the height/width
+        cam.setToOrtho(false, gWidth, gHeight);
         batch = new SpriteBatch();
         batch.setProjectionMatrix(cam.combined);
 
