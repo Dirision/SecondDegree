@@ -2,6 +2,7 @@ package com.secondgree.ger.Screens;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,6 +14,7 @@ import com.secondgree.ger.Gameplay.GameStage;
 
 public class MainScreen implements Screen{
 
+	private Game gameMaster;
 	private SpriteBatch batch;
 	private OrthographicCamera cam;
 
@@ -20,15 +22,13 @@ public class MainScreen implements Screen{
 
     public static ArrayList<GameComponent> game = new ArrayList<GameComponent>();
 
-
-    //go ahead and run the project ;'D
-
-	public void create () {
-
-        //This call includes graphic setup, as well as game logic setup.
+	public MainScreen(Game gameMaster){
 		Initalization();
-		
+		this.gameMaster = gameMaster;
 	}
+    //go ahead and run the project ;'D  (_)_):::::::::::::::::::::D
+
+	
 
     private void Initalization()
     {
@@ -59,7 +59,8 @@ public class MainScreen implements Screen{
         game.add(stage);
     }
 
-	public void render () {
+    @Override
+	public void render (float Delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
@@ -80,11 +81,7 @@ public class MainScreen implements Screen{
 		
 	}
 
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void resize(int width, int height) {
