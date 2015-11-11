@@ -1,26 +1,18 @@
-package com.secondgree.ger;
-
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.secondgree.ger.Gameplay.GameComponent;
-import com.secondgree.ger.Gameplay.GameStage;
+package com.secondgree.ger.Screens;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.secondgree.ger.T;
+import com.secondgree.ger.Gameplay.GameComponent;
+import com.secondgree.ger.Gameplay.GameStage;
 
-/**
- * An amazing endless runner, written together by David Zolnieryk, and Nick DiRiso
- * GER = Generic Endless Runner
- *
- *
- */
-public class GERGame extends Game
-{
+public class MainScreen implements Screen{
+
 	private SpriteBatch batch;
 	private OrthographicCamera cam;
 
@@ -31,13 +23,11 @@ public class GERGame extends Game
 
     //go ahead and run the project ;'D
 
-	@Override
 	public void create () {
 
         //This call includes graphic setup, as well as game logic setup.
 		Initalization();
-       // this.setScreen();
-
+		
 	}
 
     private void Initalization()
@@ -69,7 +59,6 @@ public class GERGame extends Game
         game.add(stage);
     }
 
-	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -84,4 +73,49 @@ public class GERGame extends Game
 
 		batch.end();
 	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 }
