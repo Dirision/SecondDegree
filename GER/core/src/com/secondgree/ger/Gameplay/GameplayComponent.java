@@ -7,6 +7,7 @@ public interface GameplayComponent extends GameComponent {
 
     public float getX();
     public float getY();
+    public int type();
 
     public boolean holds(int x, int y);
 

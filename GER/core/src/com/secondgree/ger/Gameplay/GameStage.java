@@ -18,18 +18,21 @@ public class GameStage implements GameComponent {
     public GameStage()
     {
         dude = new Character();
+        house = new Level();
     }
 
     @Override
     public void Update() {
 
-        dude.Update();
+        house.Update();
+        dude.Update(house.getReleventObjects());
 
     }
 
     @Override
     public void Draw(SpriteBatch batch) {
 
+        house.Draw(batch);
         dude.Draw(batch);
 
     }

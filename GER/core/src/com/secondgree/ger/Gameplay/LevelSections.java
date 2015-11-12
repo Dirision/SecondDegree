@@ -4,6 +4,7 @@ package com.secondgree.ger.Gameplay;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -19,6 +20,8 @@ public class LevelSections implements GameComponent {
     private float sectionBeginning;
 
     Color sectionColor;
+
+    ArrayList<Platform> platforms = new ArrayList<Platform>();
 
     public LevelSections(float beginning)
     {
@@ -52,5 +55,14 @@ public class LevelSections implements GameComponent {
     @Override
     public void Draw(SpriteBatch batch) {
 
+    }
+    public GameplayComponent[] getAllObjects()
+    {
+        GameplayComponent[] things = new GameplayComponent[platforms.size()];
+        for(GameplayComponent c : platforms)
+        {
+            things[platforms.indexOf(c)]= c;
+        }
+        return things;
     }
 }

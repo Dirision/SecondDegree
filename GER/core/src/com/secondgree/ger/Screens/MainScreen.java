@@ -8,6 +8,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.secondgree.ger.GERGame;
 import com.secondgree.ger.T;
 import com.secondgree.ger.Gameplay.GameComponent;
 import com.secondgree.ger.Gameplay.GameStage;
@@ -15,10 +16,8 @@ import com.secondgree.ger.Gameplay.GameStage;
 public class MainScreen implements Screen{
 
 	private Game gameMaster;
-	private SpriteBatch batch;
-	private OrthographicCamera cam;
 
-    public static int gHeight,gWidth;
+    private SpriteBatch batch;
 
     public static ArrayList<GameComponent> game = new ArrayList<GameComponent>();
 
@@ -26,7 +25,6 @@ public class MainScreen implements Screen{
 		Initalization();
 		this.gameMaster = gameMaster;
 	}
-    //go ahead and run the project ;'D  (_)_):::::::::::::::::::::D
 
 	
 
@@ -41,19 +39,9 @@ public class MainScreen implements Screen{
     {
         //First, all the graphic stuff.
 
-        //This is all the camera stuff. This will set the camera to a 2d view of the entire
-        //resolution of the screen
-        gWidth = Gdx.graphics.getWidth();
-        gHeight = Gdx.graphics.getHeight();
-
-        cam = new OrthographicCamera(gWidth,gHeight);
-        
-        // TODO: Fix the height/width
-        cam.setToOrtho(false, gWidth, gHeight);
         batch = new SpriteBatch();
-        batch.setProjectionMatrix(cam.combined);
+        batch.setProjectionMatrix(GERGame.cam.combined);
 
-        T.load();
 
     }
     private void LogicSetup()
@@ -66,16 +54,18 @@ public class MainScreen implements Screen{
 	public void render (float Delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
+
+        batch.begin();
 
         for(GameComponent thing:game)
         {
             thing.Update();
             thing.Draw(batch);
         }
+        batch.end();
 
 
-		batch.end();
+
 	}
 
 	@Override

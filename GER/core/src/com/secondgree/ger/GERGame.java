@@ -22,11 +22,38 @@ import java.util.ArrayList;
  */
 public class GERGame extends Game
 {
+
 	MainScreen mainScreen;
+
+
+    public static OrthographicCamera cam;
+
+    public static int gHeight,gWidth;
+
+
+    private void setup()
+    {
+
+
+        gWidth = Gdx.graphics.getWidth();
+        gHeight = Gdx.graphics.getHeight();
+
+        cam = new OrthographicCamera(gWidth,gHeight);
+        cam.setToOrtho(false, gWidth, gHeight);
+
+
+        T.load();
+    }
 	@Override
 	public void create() {
+
+        setup();
+
 		mainScreen = new MainScreen(this);
 		setScreen(mainScreen);
+
+
 	}
+
 
 }

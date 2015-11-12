@@ -15,14 +15,15 @@ public class Level implements GameComponent {
 
     int currentLevel=0;
 
+
     float currentDistance = 0;
-    float nextLevel = 0;
+    float nextLevel = -1;
 
     float currentSpeed=0.006f;
     float speedDifficulty=0.001f;
 
     float distanceInMemory=0;
-    float maxDistanceInMemory=5f;
+    float maxDistanceInMemory=10f;
 
     private ArrayList<LevelSections> sublevels;
 
@@ -30,17 +31,24 @@ public class Level implements GameComponent {
     {
         sublevels = new ArrayList<LevelSections>();
 
+        checkAndGenerate();
+        checkCurrentLevel();
+    }
+    private void checkAndGenerate()
+    {
         while(distanceInMemory<maxDistanceInMemory)
         {
             generateLevel();
         }
-
     }
+
+
     private void generateLevel()
     {
-        LevelSections temp = new LevelSections(distanceInMemory);
+        LevelSections temp = new LevelSections(distanceInMemory+currentDistance);
         sublevels.add(temp);
         checkDistance();
+        System.out.println("generaterinod");
 
     }
     private void checkDistance()
@@ -50,22 +58,46 @@ public class Level implements GameComponent {
         {
             distance+=sublevel.getDistance();
         }
-        if(distance>distanceInMemory)
-        {
+
             distanceInMemory=distance;
-        }
+
     }
 
 
+    public GameplayComponent[] getReleventObjects()
+    {
+        GameplayComponent badthings;
+        return sublevels.get(0).getAllObjects();
+    }
     @Override
     public void Update()
     {
-
+        System.out.println("cur "+ currentDistance+". nex "+nextLevel);
+        System.out.println("dist in mem "+ distanceInMemory+". max "+maxDistanceInMemory);
         currentDistance+=currentSpeed;
+        checkCurrentLevel();
+        checkAndGenerate();
 
         currentSpeed+=speedDifficulty;
 
+        for(LevelSections sublevel: sublevels)
+        {
+            sublevel.Update();
+        }
 
+
+
+
+    }
+    private void checkCurrentLevel()
+    {
+        if(currentDistance>nextLevel)
+        {
+
+            nextLevel = sublevels.get(1).getRelativeDistance();
+            sublevels.remove(0);
+            checkDistance();
+        }
     }
 
     @Override
