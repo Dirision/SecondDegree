@@ -40,15 +40,16 @@ public class Character implements GameplayComponent {
     }
 
     @Override
-    public void Update()
+    public void Update()//this must take in an array of all the collideables!!!!!!
     {
-
+        //for()
     }
 
     @Override
     public void Draw(SpriteBatch batch)
     {
-        T.dude.setPosition(x* GERGame.gWidth,y*GERGame.gWidth);
+        T.dude.setPosition(x*600,y*480);
+
         T.dude.draw(batch);
     }
 }
