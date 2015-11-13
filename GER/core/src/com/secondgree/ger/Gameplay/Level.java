@@ -19,8 +19,8 @@ public class Level implements GameComponent {
     float currentDistance = 0;
     float nextLevel = -1;
 
-    float currentSpeed=0.006f;
-    float speedDifficulty=0.001f;
+    float currentSpeed=0.01f;
+    float speedDifficulty=0.00001f;
 
     float distanceInMemory=0;
     float maxDistanceInMemory=10f;
@@ -32,6 +32,7 @@ public class Level implements GameComponent {
         sublevels = new ArrayList<LevelSections>();
 
         checkAndGenerate();
+        nextLevel = sublevels.get(0).getDistance();
         checkCurrentLevel();
     }
     private void checkAndGenerate()
@@ -73,7 +74,7 @@ public class Level implements GameComponent {
     public void Update()
     {
         System.out.println("cur "+ currentDistance+". nex "+nextLevel);
-        System.out.println("dist in mem "+ distanceInMemory+". max "+maxDistanceInMemory);
+
         currentDistance+=currentSpeed;
         checkCurrentLevel();
         checkAndGenerate();

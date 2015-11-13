@@ -35,7 +35,7 @@ public class LevelSections implements GameComponent {
 
         //lets generate a level!
         Random r = new Random();
-        sectionDistance = (r.nextFloat() * 2)+0.5f;
+        sectionDistance = (r.nextFloat() * 4)+2f;
     }
 
     public float getBeginning() {
@@ -62,9 +62,9 @@ public class LevelSections implements GameComponent {
 
         //draw super cool background
         Sprite t1 = T.r.get(0);
-        t1.setBounds(sectionBeginning* GERGame.gWidth,0,sectionDistance*GERGame.gWidth,GERGame.gHeight);
+        t1.setBounds(((sectionBeginning)* GERGame.gWidth),0,(sectionDistance+0.1f)*GERGame.gWidth,GERGame.gHeight);
         t1.setColor(sectionColor);
-        t1.draw(batch);
+        t1.draw(batch,0.75f);
 
     }
     public GameplayComponent[] getAllObjects()
