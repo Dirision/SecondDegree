@@ -17,6 +17,8 @@ public class Character implements GameplayComponent {
     private float gravity = 4.9f;
     private float gravityMin = 3;
 
+    private boolean touched=false;
+
     //jumping mechanics
     //private boolean inThe
     private boolean inTheAir=true;
@@ -50,10 +52,15 @@ public class Character implements GameplayComponent {
 
     public void Update(GameplayComponent[] d)//this must take in an array of all the collideables!!!!!!
     {
+        if(!inTheAir)
+        {
+            touched=false;
+        }
 
-        if(Gdx.input.isTouched())
+        if(Gdx.input.isTouched()&&!touched)
         {
             jump();
+            touched=true;
         }
        for (GameplayComponent thing: d)
        {
@@ -68,7 +75,7 @@ public class Character implements GameplayComponent {
         }
         if(inTheAir)
         {
-            currentGravity+=0.005f;
+            currentGravity+=0.001f;
             y-=currentGravity;
 
         }
@@ -81,9 +88,9 @@ public class Character implements GameplayComponent {
     }
     private void jump()
     {
-        y+=0.05f;
+        y+=0.005f;
         inTheAir=true;
-        currentGravity=-0.05f;
+        currentGravity=-0.025f;
     }
 
     @Override
