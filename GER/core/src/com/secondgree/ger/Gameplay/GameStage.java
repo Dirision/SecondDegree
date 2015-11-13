@@ -25,7 +25,7 @@ public class GameStage implements GameComponent {
     public void Update() {
 
         house.Update();
-        dude.Update(house.getReleventObjects());
+        dude.Update(house.getReleventObjects(),house.currentDistance);
 
     }
 

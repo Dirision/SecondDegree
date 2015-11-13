@@ -2,6 +2,8 @@ package com.secondgree.ger.Gameplay;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.secondgree.ger.GERGame;
 import com.secondgree.ger.T;
@@ -50,8 +52,12 @@ public class Character implements GameplayComponent {
     }
 
 
-    public void Update(GameplayComponent[] d)//this must take in an array of all the collideables!!!!!!
+    public void Update(GameplayComponent[] d,float x)//this must take in an array of all the collideables!!!!!!
     {
+
+        GERGame.cam.translate((x-this.x)*GERGame.gWidth,0);
+        GERGame.cam.update();
+        this.x = x;
         if(!inTheAir)
         {
             touched=false;
@@ -101,8 +107,18 @@ public class Character implements GameplayComponent {
     @Override
     public void Draw(SpriteBatch batch)
     {
-        T.dude.setPosition(x*GERGame.gWidth,y*GERGame.gHeight);
 
-        T.dude.draw(batch);
+
+        batch.setProjectionMatrix(GERGame.cam.combined);
+        Sprite t1 = T.r.get(0);
+        t1.setBounds(50,50,200,200);
+        t1.setColor(Color.RED);
+        t1.draw(batch);
+
+        Sprite temp = T.r.get(1);
+        temp.setPosition(x*GERGame.gWidth,y*GERGame.gHeight);
+        temp.draw(batch);
+
+
     }
 }

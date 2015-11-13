@@ -2,7 +2,10 @@ package com.secondgree.ger.Gameplay;
 
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.secondgree.ger.GERGame;
+import com.secondgree.ger.T;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,12 +23,14 @@ public class LevelSections implements GameComponent {
     private float sectionBeginning;
 
     Color sectionColor;
+    Color colors[] = {Color.BLUE,Color.BROWN,Color.CHARTREUSE,Color.GOLD};
 
     ArrayList<Platform> platforms = new ArrayList<Platform>();
 
     public LevelSections(float beginning)
     {
 
+        sectionColor = colors[(int)(Math.random()*4)];
         sectionBeginning = beginning;
 
         //lets generate a level!
@@ -54,6 +59,12 @@ public class LevelSections implements GameComponent {
 
     @Override
     public void Draw(SpriteBatch batch) {
+
+        //draw super cool background
+        Sprite t1 = T.r.get(0);
+        t1.setBounds(sectionBeginning* GERGame.gWidth,0,sectionDistance*GERGame.gWidth,GERGame.gHeight);
+        t1.setColor(sectionColor);
+        t1.draw(batch);
 
     }
     public GameplayComponent[] getAllObjects()
