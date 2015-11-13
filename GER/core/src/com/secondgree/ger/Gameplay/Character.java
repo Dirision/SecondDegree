@@ -47,7 +47,7 @@ public class Character implements GameplayComponent {
     }
 
     @Override
-    public boolean holds(int x, int y) {
+    public boolean holds(float x, float y) {
         return false;
     }
 
@@ -55,37 +55,56 @@ public class Character implements GameplayComponent {
     public void Update(GameplayComponent[] d,float x)//this must take in an array of all the collideables!!!!!!
     {
 
-        GERGame.cam.translate((x-this.x)*GERGame.gWidth,0);
+
+        GERGame.cam.translate(((x - this.x)) * GERGame.gWidth, 0);
         GERGame.cam.update();
         this.x = x;
+        if (!inTheAir) {
+            touched = false;
+        }
+
+        if (Gdx.input.isTouched() && !touched) {
+            jump();
+            touched = true;
+        }
+        boolean temp = true;
+        for (GameplayComponent l : d) {
+            if (l.type() == 1) {
+
+                if (l.holds(this.x, this.y)) {
+                    temp = false;
+
+                }
+            }
+        }
         if(!inTheAir)
         {
-            touched=false;
+            if(temp)
+            {
+                inTheAir=true;
+            }
+        }
+        else
+        {
+            if(!temp)
+            {
+                inTheAir=false;
+                currentGravity=0;
+                System.out.println("platofmrd");
+            }
         }
 
-        if(Gdx.input.isTouched()&&!touched)
-        {
-            jump();
-            touched=true;
-        }
-       for (GameplayComponent thing: d)
-       {
-           if(thing.type()==1)
-           {
-               //walls
-           }
-       }
-        if(y<=0.10f)
-        {
-            ground();
-        }
-        if(inTheAir)
-        {
-            currentGravity+=0.001f;
-            y-=currentGravity;
+            if (y <= 0.10f) {
+                ground();
+            }
 
+            if (inTheAir) {
+                currentGravity += 0.001f;
+                y -= currentGravity;
+
+            }
         }
-    }
+
     private void ground()
     {
         inTheAir=false;

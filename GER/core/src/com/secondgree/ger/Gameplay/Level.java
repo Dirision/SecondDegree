@@ -73,7 +73,7 @@ public class Level implements GameComponent {
     @Override
     public void Update()
     {
-        System.out.println("cur "+ currentDistance+". nex "+nextLevel);
+
 
         currentDistance+=currentSpeed;
         checkCurrentLevel();
@@ -108,6 +108,7 @@ public class Level implements GameComponent {
         {
             sublevel.Draw(batch);
         }
+       // sublevels.get(0).Draw(batch);
 
     }
 }

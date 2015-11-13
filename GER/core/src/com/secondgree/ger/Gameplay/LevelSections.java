@@ -36,6 +36,41 @@ public class LevelSections implements GameComponent {
         //lets generate a level!
         Random r = new Random();
         sectionDistance = (r.nextFloat() * 4)+2f;
+
+        platforms = makePlatforms(platforms);
+    }
+
+    public ArrayList<Platform> makePlatforms(ArrayList<Platform> c)
+    {
+        int numPlatforms = 10;
+        if(c.size() >= numPlatforms)
+        {
+            return c;
+        }
+        if(c.size() == 0)
+        {
+            Platform temp = new Platform(sectionBeginning+0.1f,0.2f);
+            c.add(temp);
+        }
+        if(c.size() < numPlatforms)
+        {
+            float oldx = c.get(c.size()-1).getX(),oldy=c.get(c.size()-1).getY();
+            float rnd = (float)(Math.random());
+            int i=0;
+            while(i<rnd)
+            {
+                float rng = (float)(Math.random());
+                Platform temp = new Platform(oldx+rng,oldy+rng);
+                c.add(temp);
+
+                i++;
+            }
+
+        }
+        System.out.println("fuck");
+      return makePlatforms(c);
+
+
     }
 
     public float getBeginning() {
@@ -65,6 +100,11 @@ public class LevelSections implements GameComponent {
         t1.setBounds(((sectionBeginning)* GERGame.gWidth),0,(sectionDistance+0.1f)*GERGame.gWidth,GERGame.gHeight);
         t1.setColor(sectionColor);
         t1.draw(batch,0.75f);
+
+        for(Platform p: platforms)
+        {
+            p.Draw(batch);
+        }
 
     }
     public GameplayComponent[] getAllObjects()

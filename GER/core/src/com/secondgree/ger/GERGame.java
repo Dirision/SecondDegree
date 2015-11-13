@@ -40,6 +40,7 @@ public class GERGame extends Game
 
         cam = new OrthographicCamera(gWidth,gHeight);
         cam.setToOrtho(false, gWidth, gHeight);
+        cam.zoom = 2f;
 
 
         T.load();

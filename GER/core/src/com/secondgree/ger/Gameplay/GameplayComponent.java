@@ -9,7 +9,7 @@ public interface GameplayComponent extends GameComponent {
     public float getY();
     public int type();
 
-    public boolean holds(int x, int y);
+    public boolean holds(float x, float y);
 
 
 }
