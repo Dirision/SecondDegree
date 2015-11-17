@@ -43,6 +43,8 @@ public class GERGame extends Game
         cam.zoom = 2f;
 
 
+
+
         T.load();
     }
 	@Override

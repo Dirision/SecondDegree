@@ -42,8 +42,8 @@ public class LevelSections implements GameComponent {
 
     public ArrayList<Platform> makePlatforms(ArrayList<Platform> c)
     {
-        /*
-        int numPlatforms = 10;
+
+        /*int numPlatforms = 10;
         if(c.size() >= numPlatforms)
         {
             return c;
@@ -61,7 +61,8 @@ public class LevelSections implements GameComponent {
             while(i<rnd)
             {
                 float rng = (float)(Math.random());
-                Platform temp = new Platform(oldx+rng,oldy+rng);
+                float tR = rng * oldy + (float)0.1;
+                Platform temp = new Platform(oldx+rng,oldy+tr);
                 c.add(temp);
 
                 i++;
@@ -69,13 +70,12 @@ public class LevelSections implements GameComponent {
 
         }
         System.out.println("fuck");
-      return makePlatforms(c);
-      */
-        int num = 5;
+      return makePlatforms(c);*/
+        int num = (int)(sectionDistance/0.2f);
         int i = 0;
         float distance = 0.5f;
         while(i<num) {
-            Platform t = new Platform(sectionBeginning+(i*distance), 0.1f*i);
+            Platform t = new Platform(sectionBeginning+(i*distance), (float)Math.random()*0.15f*(i-1)+0.15f);
             c.add(t);
             i++;
         }

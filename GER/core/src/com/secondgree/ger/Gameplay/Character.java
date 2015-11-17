@@ -59,7 +59,7 @@ public class Character implements GameplayComponent {
 
 
 
-        GERGame.cam.translate(((x - this.x)) * GERGame.gWidth, y-oldy);
+        GERGame.cam.translate(((x - this.x)) * GERGame.gWidth, (y-oldy)*GERGame.gHeight);
         this.x=x;
         GERGame.cam.update();
         this.x = x;
@@ -119,7 +119,7 @@ public class Character implements GameplayComponent {
     }
     private void jump()
     {
-        y+=0.005f;
+        y+=0.03f;
         inTheAir=true;
         currentGravity=-0.025f;
     }
