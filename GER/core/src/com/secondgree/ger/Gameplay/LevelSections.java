@@ -23,14 +23,14 @@ public class LevelSections implements GameComponent {
     private float sectionBeginning;
 
     Color sectionColor;
-    Color colors[] = {new Color(0.1f,0.2f,0.3f,1),new Color(0.3f,0.4f,0.5f,1),new Color(.6f,.7f,.8f,1)};
+    Color colors[] = {Color.BLUE,Color.RED,Color.CYAN,Color.CHARTREUSE,Color.FIREBRICK};
 
     ArrayList<Platform> platforms = new ArrayList<Platform>();
 
     public LevelSections(float beginning)
     {
 
-        sectionColor = colors[(int)(colors.length-1)];
+        sectionColor = colors[(int)(Math.random()*(colors.length-1))];
         sectionBeginning = beginning;
 
         //lets generate a level!
