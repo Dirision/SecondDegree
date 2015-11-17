@@ -16,7 +16,9 @@ public class Platform implements GameplayComponent {
     private float x,y;
     Color c = Color.BLACK;
 
-    public float length=100f;
+    private float length = 0.5f;//the actual amounts of screen
+    private int lengthp = (int)(length*(GERGame.gWidth));
+
 
     public Platform(float x,float y)
     {
@@ -36,14 +38,14 @@ public class Platform implements GameplayComponent {
     @Override
     public boolean holds(float x, float y) {
 
-        if(y>=this.y&&y-0.01f<this.y)
+        if(y>=this.y&&y-0.03f<this.y)
         {
-            System.out.println("vertically correct");
+
             if(x>=this.x)
             {
-                if(Math.abs(this.x-x) >0.00001f)
+                if(x-this.x <length+0.1f)
                 {
-                    System.out.println("horizontally correct");
+
                     c=Color.RED;
                     return true;
                 }
@@ -61,9 +63,11 @@ public class Platform implements GameplayComponent {
     public void Draw(SpriteBatch batch) {
 
         Sprite temp  = T.r.get(0);
-        temp.setBounds(x * GERGame.gWidth, y * GERGame.gHeight, 100, 20);
+        temp.setBounds(x * GERGame.gWidth, y * GERGame.gHeight, lengthp, 20);
         temp.setColor(c);
         temp.draw(batch);
+
+        c= Color.BLACK;
 
 
     }

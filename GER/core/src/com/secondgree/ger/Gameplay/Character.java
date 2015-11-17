@@ -13,7 +13,7 @@ import com.secondgree.ger.T;
  */
 public class Character implements GameplayComponent {
 
-    private float x,y;
+    private float x,y,oldy;
 
     private float currentGravity = 0;
     private float gravity = 4.9f;
@@ -29,6 +29,7 @@ public class Character implements GameplayComponent {
     {
         this.x = 0f;
         this.y = 1f;
+        oldy=0;
     }
 
     @Override
@@ -56,9 +57,13 @@ public class Character implements GameplayComponent {
     {
 
 
-        GERGame.cam.translate(((x - this.x)) * GERGame.gWidth, 0);
+
+
+        GERGame.cam.translate(((x - this.x)) * GERGame.gWidth, y-oldy);
+        this.x=x;
         GERGame.cam.update();
         this.x = x;
+        oldy=y;
         if (!inTheAir) {
             touched = false;
         }
@@ -94,7 +99,7 @@ public class Character implements GameplayComponent {
             }
         }
 
-            if (y <= 0.10f) {
+            if (y <= 0.0f) {
                 ground();
             }
 
@@ -103,13 +108,14 @@ public class Character implements GameplayComponent {
                 y -= currentGravity;
 
             }
+
         }
 
     private void ground()
     {
         inTheAir=false;
         currentGravity=0;
-        y=0.1f;
+        y=0.0f;
     }
     private void jump()
     {

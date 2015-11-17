@@ -23,14 +23,14 @@ public class LevelSections implements GameComponent {
     private float sectionBeginning;
 
     Color sectionColor;
-    Color colors[] = {Color.BLUE,Color.BROWN,Color.CHARTREUSE,Color.GOLD};
+    Color colors[] = {new Color(0.1f,0.2f,0.3f,1),new Color(0.3f,0.4f,0.5f,1),new Color(.6f,.7f,.8f,1)};
 
     ArrayList<Platform> platforms = new ArrayList<Platform>();
 
     public LevelSections(float beginning)
     {
 
-        sectionColor = colors[(int)(Math.random()*4)];
+        sectionColor = colors[(int)(colors.length-1)];
         sectionBeginning = beginning;
 
         //lets generate a level!
@@ -42,6 +42,7 @@ public class LevelSections implements GameComponent {
 
     public ArrayList<Platform> makePlatforms(ArrayList<Platform> c)
     {
+        /*
         int numPlatforms = 10;
         if(c.size() >= numPlatforms)
         {
@@ -69,8 +70,23 @@ public class LevelSections implements GameComponent {
         }
         System.out.println("fuck");
       return makePlatforms(c);
+      */
+        int num = 5;
+        int i = 0;
+        float distance = 0.5f;
+        while(i<num) {
+            Platform t = new Platform(sectionBeginning+(i*distance), 0.1f*i);
+            c.add(t);
+            i++;
+        }
+        return c;
 
+    }
 
+    public ArrayList<Platform> getFirstPlatform() {
+        ArrayList<Platform> p = new ArrayList<Platform>();
+        p.add(platforms.get(platforms.size()-1));
+        return p;
     }
 
     public float getBeginning() {
