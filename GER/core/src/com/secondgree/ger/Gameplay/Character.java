@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.secondgree.ger.GERGame;
 import com.secondgree.ger.T;
 
+import java.util.ArrayList;
+
 /**
  * Created by david on 2015-11-11.
  */
@@ -19,16 +21,19 @@ public class Character implements GameplayComponent {
     private float gravity = 4.9f;
     private float gravityMin = 3;
 
-    private boolean touched=false;
+    private boolean previousState=false;
+    private boolean currentState=false;
+
+    private boolean touching=true;//is ON a platform;
 
     //jumping mechanics
-    //private boolean inThe
+
     private boolean inTheAir=true;
 
-    public Character()
+    public Character(float x,float y)
     {
-        this.x = 0f;
-        this.y = 1f;
+        this.x = x;
+        this.y = y;
         oldy=0;
     }
 
@@ -49,78 +54,83 @@ public class Character implements GameplayComponent {
 
     @Override
     public boolean holds(float x, float y) {
+        if(this.x > x-0.01f && this.x < x+Platform.length)
+        {
+            return true;
+            /**
+            if(this.y>y &&this.y<y+0.05f)
+            {
+                return true;
+            }
+             */
+        }
         return false;
     }
 
 
-    public void Update(GameplayComponent[] d,float x)//this must take in an array of all the collideables!!!!!!
+    public void Update(float x)
     {
-
-
-
-
-        GERGame.cam.translate(((x - this.x)) * GERGame.gWidth, (y-oldy)*GERGame.gHeight);
-        this.x=x;
-        GERGame.cam.update();
+        System.out.print(touching);
         this.x = x;
-        oldy=y;
-        if (!inTheAir) {
-            touched = false;
-        }
 
-        if (Gdx.input.isTouched() && !touched) {
-            jump();
-            touched = true;
-        }
-        boolean temp = true;
-        for (GameplayComponent l : d) {
-            if (l.type() == 1) {
+        checkControls();
 
-                if (l.holds(this.x, this.y)) {
-                    temp = false;
+        y-=currentGravity;
 
-                }
-            }
-        }
-        if(!inTheAir)
+        if(y<0.001f)
         {
-            if(temp)
-            {
-                inTheAir=true;
-            }
+            ground();
+        }
+
+        if(touching)
+        {
+            currentGravity=0;
         }
         else
         {
-            if(!temp)
+            currentGravity+=0.001f;
+        }
+
+    }
+    public void doCollision(ArrayList<GameplayComponent> f)
+    {
+        for(GameplayComponent g :f)
+        {
+            if(g.type()==1)
             {
-                inTheAir=false;
-                currentGravity=0;
-                System.out.println("platofmrd");
+                if(g.holds(this.x,this.y)||this.y<0.01f)
+                {
+                    touching = true;
+                    return;
+                }
             }
         }
+        touching = false;
+    }
+    private void checkControls()
+    {
+        previousState = currentState;
 
-            if (y <= 0.0f) {
-                ground();
-            }
+        currentState = Gdx.input.isTouched();
 
-            if (inTheAir) {
-                currentGravity += 0.001f;
-                y -= currentGravity;
+        if(currentState&&touching)
+        {
 
-            }
-
+            jump();
         }
+    }
 
     private void ground()
     {
-        inTheAir=false;
+        touching = true;
         currentGravity=0;
         y=0.0f;
     }
-    private void jump()
+
+    private void jump()//Internal usage only
     {
         y+=0.03f;
-        inTheAir=true;
+        touching = false;
         currentGravity=-0.025f;
     }
 

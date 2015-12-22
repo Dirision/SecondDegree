@@ -9,15 +9,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *
  */
 public class GameStage implements GameComponent {
-
-    Character dude;
     Level house;
 
 
 
     public GameStage()
     {
-        dude = new Character();
+
         house = new Level();
     }
 
@@ -25,7 +23,7 @@ public class GameStage implements GameComponent {
     public void Update() {
 
         house.Update();
-        dude.Update(house.getReleventObjects(),house.currentDistance);
+
 
     }
 
@@ -33,7 +31,7 @@ public class GameStage implements GameComponent {
     public void Draw(SpriteBatch batch) {
 
         house.Draw(batch);
-        dude.Draw(batch);
+
 
     }
 }

@@ -42,6 +42,8 @@ public class GERGame extends Game
         cam.setToOrtho(false, gWidth, gHeight);
         cam.zoom = 2f;
 
+        cam.update();
+
 
 
 

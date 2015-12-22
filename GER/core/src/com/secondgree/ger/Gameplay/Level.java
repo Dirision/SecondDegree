@@ -1,7 +1,9 @@
 package com.secondgree.ger.Gameplay;
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.secondgree.ger.GERGame;
 
 import java.util.ArrayList;
 
@@ -25,11 +27,14 @@ public class Level implements GameComponent {
     float distanceInMemory=0;
     float maxDistanceInMemory=10f;
 
-    private ArrayList<LevelSections> sublevels;
+    Character player;
+
+    private ArrayList<LevelSection> sublevels;
 
     public Level()
     {
-        sublevels = new ArrayList<LevelSections>();
+        sublevels = new ArrayList<LevelSection>();
+        player = new Character(0,0.15f);//starting position
 
         checkAndGenerate();
         nextLevel = sublevels.get(0).getDistance();
@@ -40,13 +45,27 @@ public class Level implements GameComponent {
         while(distanceInMemory<maxDistanceInMemory)
         {
             generateLevel();
+
         }
     }
 
 
+    /**
+     * Internal usage to create a single level, and adds it at the end of the sublevels list.
+     */
     private void generateLevel()
     {
-        LevelSections temp = new LevelSections(distanceInMemory+currentDistance);
+        LevelSection temp=null;
+
+
+        if (distanceInMemory>0)
+        {
+            temp = new LevelSection(currentDistance+distanceInMemory,sublevels.get(sublevels.size()-1).getFirstPlatform());
+        }
+        else
+        {
+            temp = new LevelSection();
+        }
         sublevels.add(temp);
         checkDistance();
         System.out.println("generaterinod");
@@ -55,7 +74,7 @@ public class Level implements GameComponent {
     private void checkDistance()
     {
         float distance=0;
-        for(LevelSections sublevel: sublevels)
+        for(LevelSection sublevel: sublevels)
         {
             distance+=sublevel.getDistance();
         }
@@ -65,23 +84,35 @@ public class Level implements GameComponent {
     }
 
 
-    public GameplayComponent[] getReleventObjects()
+    public ArrayList<GameplayComponent> getReleventObjects()
     {
-        GameplayComponent badthings;
-        return sublevels.get(0).getAllObjects();
+        ArrayList<GameplayComponent> c = new ArrayList<GameplayComponent>();
+        for(int x=0;x<2;x++)
+        {
+
+            for(GameplayComponent g:sublevels.get(x).getAllObjects())
+            {
+                c.add(g);
+            }
+        }
+
+        return c;
     }
     @Override
     public void Update()
     {
 
-
+        GERGame.cam.translate(currentSpeed * GERGame.gWidth, 0);
+        GERGame.cam.update();
         currentDistance+=currentSpeed;
         checkCurrentLevel();
         checkAndGenerate();
 
         currentSpeed+=speedDifficulty;
+        player.doCollision(getReleventObjects());
 
-        for(LevelSections sublevel: sublevels)
+        player.Update(currentDistance);
+        for(LevelSection sublevel: sublevels)
         {
             sublevel.Update();
         }
@@ -92,7 +123,7 @@ public class Level implements GameComponent {
     }
     private void checkCurrentLevel()
     {
-        if(currentDistance>nextLevel)
+        if(currentDistance>(nextLevel+0.5f))
         {
 
             nextLevel = sublevels.get(1).getRelativeDistance();
@@ -104,10 +135,14 @@ public class Level implements GameComponent {
     @Override
     public void Draw(SpriteBatch batch)
     {
-        for(LevelSections sublevel:sublevels)
+       // GERGame.cam.translate();
+
+
+        for(LevelSection sublevel:sublevels)
         {
             sublevel.Draw(batch);
         }
+        player.Draw(batch);
        // sublevels.get(0).Draw(batch);
 
     }

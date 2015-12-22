@@ -16,7 +16,7 @@ public class Platform implements GameplayComponent {
     private float x,y;
     Color c = Color.BLACK;
 
-    private float length = 0.5f;//the actual amounts of screen
+    final static float length = 0.2f;//the actual amounts of screen
     private int lengthp = (int)(length*(GERGame.gWidth));
 
 
@@ -27,30 +27,34 @@ public class Platform implements GameplayComponent {
 
     @Override
     public float getX() {
-        return 0;
+        return x;
     }
 
     @Override
     public float getY() {
-        return 0;
+        return y;
     }
 
     @Override
     public boolean holds(float x, float y) {
 
-        if(y>=this.y&&y-0.03f<this.y)
+        //System.out.println("checking to see if "+Float.toString(x)+","+Float.toString(y)+" are in between "+Float.toString(this.x)+","+Float.toString(this.y));
+
+        if(x >= (this.x-0.05f) && x<this.x+(length+0.05f))
         {
-
-            if(x>=this.x)
+           // System.out.println("it is");
+            if(this.y<y)
             {
-                if(x-this.x <length+0.1f)
+               if( this.y+0.05f>y)
                 {
+                    c = Color.RED;
 
-                    c=Color.RED;
                     return true;
                 }
             }
         }
+
+
         return false;
     }
 
